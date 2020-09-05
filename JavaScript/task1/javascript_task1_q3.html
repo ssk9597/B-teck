@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript課題①-3</title>
+  </head>
+  <body>
+    <script>
+      const arry = ["掃除", "買い物", "散歩"];
+
+      const performTask = () => {
+        console.log("=========================");
+        console.log("現在持っているタスクの一覧");
+        console.log("=========================");
+        for (let i = 0; i < arry.length; i++) {
+          console.log(i + " : " + arry[i]);
+        }
+      };
+
+      performTask();
+
+      let result = "";
+
+      while (result !== "終了") {
+        const additionArry = window.prompt("タスクを入力してください", "");
+
+        result = window.prompt(
+          "「確認, 追加, 削除, 終了」の4つのいずれかを入力してください",
+          ""
+        );
+
+        if (result === "確認") {
+          arry.push(additionArry);
+          document.write(arry);
+          break;
+        } else if (result === "追加") {
+          arry.push(additionArry);
+          performTask();
+          alert("新しいタスクを追加しました");
+        } else if (result === "削除") {
+          arry.push(additionArry);
+          arry.pop();
+          performTask();
+          break;
+        } else if (result === "終了") {
+          break;
+        } else {
+          window.prompt(
+            "「確認, 追加, 削除, 終了」の4つのいずれかを入力してください",
+            ""
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
