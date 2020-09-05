@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript課題①-2</title>
+  </head>
+  <body>
+    <script>
+      let capital = window.prompt("日本の首都は?", "");
+
+      while (capital !== "東京") {
+        alert("不正解です！");
+        capital = window.prompt("日本の首都は?", "");
+      }
+
+      alert("正解です！");
+    </script>
+  </body>
+</html>
