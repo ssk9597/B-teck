@@ -30,7 +30,6 @@
         const BuzzNum = document.getElementById("BuzzNum").value;
         let val = "";
         target = document.getElementById("output");
-        const p = document.createElement("p");
 
         if (
           //inputに数字のみ入力できるようにする
@@ -44,16 +43,25 @@
         } else {
           for (let i = 1; i < 100; i++) {
             if (i % FizzNum === 0 && i % BuzzNum === 0) {
-              val = p.appendChild(document.createTextNode("FizzBuzz " + i));
-              target.appendChild(val);
+              target.appendChild(
+                document
+                  .createElement("p")
+                  .appendChild(document.createTextNode("FizzBuzz " + i))
+              );
               target.appendChild(document.createElement("br"));
             } else if (i % FizzNum === 0) {
-              val = p.appendChild(document.createTextNode("Fizz " + i));
-              target.appendChild(val);
+              target.appendChild(
+                document
+                  .createElement("p")
+                  .appendChild(document.createTextNode("Fizz " + i))
+              );
               target.appendChild(document.createElement("br"));
             } else if (i % BuzzNum === 0) {
-              val = p.appendChild(document.createTextNode("Buzz " + i));
-              target.appendChild(val);
+              target.appendChild(
+                document
+                  .createElement("p")
+                  .appendChild(document.createTextNode("Buzz " + i))
+              );
               target.appendChild(document.createElement("br"));
             }
           }
