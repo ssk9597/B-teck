@@ -5,5 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JavaScript課題②-1</title>
   </head>
-  <body></body>
+  <body>
+    <h2>FizzBuzz問題</h2>
+
+    <p>
+      FizzNum:
+      <input
+        type="number"
+        placeholder="整数値を入力してください"
+        id="FizzNum"
+      />
+    </p>
+    <p>
+      BuzzNum:
+      <input
+        type="number"
+        placeholder="整数値を入力してください"
+        id="BuzzNum"
+      />
+    </p>
+
+    <button onclick="doOutput()">実行</button>
+
+    <p>【出力】</p>
+    <p id="output"></p>
+
+    <script>
+      let outputArry = [];
+
+      const doOutput = (FizzNum, BuzzNum) => {
+        FizzNum = document.getElementById("FizzNum").value;
+        BuzzNum = document.getElementById("BuzzNum").value;
+        let val = "";
+        target = document.getElementById("output");
+
+        for (let i = 1; i < 100; i++) {
+          if (i % FizzNum === 0 && i % BuzzNum === 0) {
+            val = "FizzBuzz " + i;
+            outputArry.push(val);
+          } else if (i % FizzNum === 0) {
+            val = "Fizz " + i;
+            outputArry.push(val);
+          } else if (i % BuzzNum === 0) {
+            val = "Buzz " + i;
+            outputArry.push(val);
+          }
+        }
+
+        for (let v = 0; v < outputArry.length; v++) {
+          target.innerHTML += outputArry[v] + "<br>";
+        }
+      };
+    </script>
+  </body>
 </html>
