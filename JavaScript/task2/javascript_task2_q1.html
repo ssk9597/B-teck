@@ -20,7 +20,7 @@
     <button id="btn">実行</button>
 
     <p>【出力】</p>
-    <p id="output"></p>
+    <div id="output"></div>
 
     <script>
       const btn = document.getElementById("btn");
@@ -29,40 +29,42 @@
         const FizzNum = document.getElementById("FizzNum").value;
         const BuzzNum = document.getElementById("BuzzNum").value;
         let val = "";
-        target = document.getElementById("output");
+        let target = document.getElementById("output");
+
+        if (target.hasChildNodes()) {
+          for (let i = target.childNodes.length - 1; i >= 0; i--) {
+            target.removeChild(target.childNodes[i]);
+          }
+        }
 
         if (
           //inputに数字のみ入力できるようにする
           FizzNum.match(/[0-9]+/g) != FizzNum ||
           BuzzNum.match(/[0-9]+/g) != BuzzNum
         ) {
-          const errorMessage = p.appendChild(
-            document.createTextNode("整数値を入力してください")
+          const p = document.createElement("p");
+          const errorMessage = document.createTextNode(
+            "整数値を入力してください"
           );
-          target.appendChild(errorMessage);
+          p.appendChild(errorMessage);
+          target.appendChild(p);
         } else {
           for (let i = 1; i < 100; i++) {
             if (i % FizzNum === 0 && i % BuzzNum === 0) {
-              target.appendChild(
-                document
-                  .createElement("p")
-                  .appendChild(document.createTextNode("FizzBuzz " + i))
-              );
-              target.appendChild(document.createElement("br"));
+              const p = document.createElement("p");
+              val = document.createTextNode("FizzBuzz " + i);
+              p.appendChild(val);
+              target.appendChild(p);
             } else if (i % FizzNum === 0) {
-              target.appendChild(
-                document
-                  .createElement("p")
-                  .appendChild(document.createTextNode("Fizz " + i))
-              );
-              target.appendChild(document.createElement("br"));
+              const p = document.createElement("p");
+              val = document.createTextNode("Fizz " + i);
+              p.appendChild(val);
+              target.appendChild(p);
             } else if (i % BuzzNum === 0) {
-              target.appendChild(
-                document
-                  .createElement("p")
-                  .appendChild(document.createTextNode("Buzz " + i))
-              );
-              target.appendChild(document.createElement("br"));
+              const p = document.createElement("p");
+              val = document.createTextNode("Buzz " + i);
+              p.appendChild(val);
+              target.appendChild(p);
             }
           }
         }
