@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript課題②-1</title>
+  </head>
+  <body>
+    <h2>FizzBuzz問題</h2>
+
+    <p>
+      FizzNum:
+      <input id="FizzNum" name="input" placeholder="整数値を入力してください" />
+    </p>
+    <p>
+      BuzzNum:
+      <input id="BuzzNum" name="input" placeholder="整数値を入力してください" />
+    </p>
+
+    <button id="btn">実行</button>
+
+    <p>【出力】</p>
+    <div id="output"></div>
+
+    <script>
+      const btn = document.getElementById("btn");
+
+      btn.addEventListener("click", () => {
+        const FizzNum = document.getElementById("FizzNum").value;
+        const BuzzNum = document.getElementById("BuzzNum").value;
+        let val = "";
+        let target = document.getElementById("output");
+
+        if (target.hasChildNodes()) {
+          for (let i = target.childNodes.length - 1; i >= 0; i--) {
+            target.removeChild(target.childNodes[i]);
+          }
+        }
+
+        if (
+          //inputに数字のみ入力できるようにする
+          FizzNum.match(/[0-9]+/g) != FizzNum ||
+          BuzzNum.match(/[0-9]+/g) != BuzzNum
+        ) {
+          const p = document.createElement("p");
+          const errorMessage = document.createTextNode(
+            "整数値を入力してください"
+          );
+          p.appendChild(errorMessage);
+          target.appendChild(p);
+        } else {
+          for (let i = 1; i < 100; i++) {
+            if (i % FizzNum === 0 && i % BuzzNum === 0) {
+              const p = document.createElement("p");
+              val = document.createTextNode("FizzBuzz " + i);
+              p.appendChild(val);
+              target.appendChild(p);
+            } else if (i % FizzNum === 0) {
+              const p = document.createElement("p");
+              val = document.createTextNode("Fizz " + i);
+              p.appendChild(val);
+              target.appendChild(p);
+            } else if (i % BuzzNum === 0) {
+              const p = document.createElement("p");
+              val = document.createTextNode("Buzz " + i);
+              p.appendChild(val);
+              target.appendChild(p);
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
