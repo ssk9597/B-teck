@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript課題③-1</title>
+  </head>
+  <body>
+    <h1>ToDoリスト</h1>
+
+    <form>
+      <input type="radio" />
+      <label>すべて</label>
+      <input type="radio" />
+      <label>作業中</label>
+      <input type="radio" />
+      <label>完了</label>
+    </form>
+
+    <table>
+      <thead>
+        <th>ID</th>
+        <th>コメント</th>
+        <th>状態</th>
+      </thead>
+      <tbody id="addictionTask"></tbody>
+    </table>
+
+    <h2>新規タスクの追加</h2>
+    <input id="taskValue" type="text" />
+    <button id="addiction">追加</button>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      //要素指定
+      const addictionTask = document.getElementById("addictionTask");
+      const taskValue = document.getElementById("taskValue");
+      const addiction = document.getElementById("addiction");
+
+      //初期ID
+      let initID = 0;
+
+      let addTask = (task, id) => {
+        //表のタグを作成
+        const tableTr = document.createElement("tr");
+        const tableWorkingTd = document.createElement("td");
+        const tableWorkingButton = document.createElement("button");
+        const tableRemoveTd = document.createElement("td");
+        const tableRemoveButton = document.createElement("button");
+
+        //状態の2つのボタンにテキストを追加
+        tableWorkingButton.innerText = "作業中";
+        tableRemoveButton.innerText = "削除";
+
+        //IDをtableTrに追加する準備
+        const tableIdSpan = document.createElement("span");
+        tableIdSpan.innerText = id;
+        const tableIdSpanTd = document.createElement("td");
+        tableIdSpanTd.append(tableIdSpan);
+
+        //taskをtableTrに追加する準備
+        const tableTaskSpan = document.createElement("span");
+        tableTaskSpan.innerText = task;
+        const tableTaskSpanTd = document.createElement("td");
+        tableTaskSpanTd.append(tableTaskSpan);
+
+        //2つのボタンをtableTrに追加する準備
+        tableWorkingTd.append(tableWorkingButton);
+        tableRemoveTd.append(tableRemoveButton);
+
+        //tableTrに追加
+        tableTr.append(tableIdSpanTd);
+        tableTr.append(tableTaskSpanTd);
+        tableTr.append(tableWorkingTd);
+        tableTr.append(tableRemoveTd);
+
+        //入力したタスクを表示する
+        addictionTask.appendChild(tableTr);
+      };
+
+      //追加ボタンをクリックしたとき
+      addiction.addEventListener("click", () => {
+        //input内の入力項目を抽出
+        let taskContent = taskValue.value;
+        addTask(taskContent, initID++);
+        taskValue.value = "";
+      });
+    });
+  </script>
+</html>
