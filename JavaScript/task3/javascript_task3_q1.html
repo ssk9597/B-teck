@@ -41,6 +41,9 @@
       //初期ID
       let initID = 0;
 
+      //タスクを蓄積するtodos
+      const todos = [];
+
       let addTask = (task, id) => {
         //表のタグを作成
         const tableTr = document.createElement("tr");
@@ -81,10 +84,21 @@
 
       //追加ボタンをクリックしたとき
       addiction.addEventListener("click", () => {
-        //input内の入力項目を抽出
-        let taskContent = taskValue.value;
-        addTask(taskContent, initID++);
-        taskValue.value = "";
+        const displayTodos = () => {
+          //inputの内容をtaskに代入、statusを作業中にする
+          const todo = {
+            task: taskValue.value,
+            status: "作業中",
+          };
+          //上記のtodoをtodosに代入
+          todos.push(todo);
+          //関数addTaskを呼び出す、引数はinputの内容と初期ID
+          addTask(todo.task, initID++);
+          //inputの中をリセット
+          taskValue.value = "";
+        };
+
+        displayTodos();
       });
     });
   </script>
