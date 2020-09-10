@@ -90,8 +90,13 @@
 
           //削除ボタンが押された要素を削除する
           const removeVal = todos.pop(todos[idValue]);
-          console.log(removeVal);
-          console.log(todos);
+
+          //中身を上書きし出力する
+          for (let i = 0; i < todos.length; i++) {
+            let todo = { task: todos[i].task, status: "作業中" };
+            console.log(todo);
+            addTask(todo.task, initID++);
+          }
         });
       };
 
@@ -99,7 +104,7 @@
       addiction.addEventListener("click", () => {
         const displayTodos = () => {
           //inputの内容をtaskに代入、statusを作業中にする
-          const todo = {
+          let todo = {
             task: taskValue.value,
             status: "作業中",
           };
