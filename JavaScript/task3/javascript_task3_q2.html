@@ -83,11 +83,15 @@
 
         //削除ボタンをクリックしたとき
         tableRemoveButton.addEventListener("click", () => {
-          console.log("削除しました");
-          //削除ボタンがある<tr>を呼び出す
-          const targetTr = tableRemoveButton.closest("tr");
-          //上で呼び出した<tr>内すべてを削除
-          addictionTask.removeChild(targetTr);
+          //tableのIDにidを付与しid番号を取得
+          tableIdSpanTd.id = "idNumber";
+          const idNumberVal = document.getElementById("idNumber");
+          const idValue = idNumberVal.innerText;
+
+          //削除ボタンが押された要素を削除する
+          const removeVal = todos.pop(todos[idValue]);
+          console.log(removeVal);
+          console.log(todos);
         });
       };
 
