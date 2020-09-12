@@ -38,11 +38,8 @@
       const taskValue = document.getElementById("taskValue");
       const addiction = document.getElementById("addiction");
 
-      //初期ID
-      let initID = 0;
-
       //タスクを蓄積するtodos
-      const todos = [];
+      let todos = [];
 
       let addTask = (task, id) => {
         //表のタグを作成
@@ -87,15 +84,27 @@
           tableIdSpanTd.id = "idNumber";
           const idNumberVal = document.getElementById("idNumber");
           const idValue = idNumberVal.innerText;
+          // console.log(idValue);
 
-          //削除ボタンが押された要素を削除する
-          const removeVal = todos.pop(todos[idValue]);
+          //削除ボタンが押された要素を削除し、todosに代入
+          todos = todos.filter((n) => n.id != idValue);
 
-          //中身を上書きし出力する
+          //IDを再度振り直す
+          todos.forEach((todo, index) => {
+            todo.id = index;
+          });
+
+          //addictionTaskの中身をすべて削除する
+          addictionTask.innerHTML = "";
+
+          //addictionTaskに出力する
           for (let i = 0; i < todos.length; i++) {
-            let todo = { task: todos[i].task, status: "作業中" };
-            console.log(todo);
-            addTask(todo.task, initID++);
+            let todo = {
+              task: todos[i].task,
+              status: "作業中",
+              id: todos[i].id,
+            };
+            addTask(todo.task, todo.id);
           }
         });
       };
@@ -108,10 +117,18 @@
             task: taskValue.value,
             status: "作業中",
           };
+
           //上記のtodoをtodosに代入
           todos.push(todo);
+
+          //IDを再度振り直す
+          todos.forEach((todo, index) => {
+            todo.id = index;
+          });
+
           //関数addTaskを呼び出す、引数はinputの内容と初期ID
-          addTask(todo.task, initID++);
+          addTask(todo.task, todo.id);
+
           //inputの中をリセット
           taskValue.value = "";
         };
