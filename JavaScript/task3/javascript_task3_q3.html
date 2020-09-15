@@ -109,10 +109,22 @@
 
         //作業中・完了ボタンをクリックしたとき
         tableWorkingButton.addEventListener("click", () => {
+          //tableのIDにidを付与しid番号を取得
+          tableIdSpanTd.id = "idNumber";
+          const idNumberVal = document.getElementById("idNumber");
+          const idValue = idNumberVal.innerText;
+
+          /*
+          ボタンがクリックされたら、
+          ①作業中⇄完了にボタンのテキストの変更
+          ②todoのステータスを作業中⇄完了に変更
+          */
           if (tableWorkingButton.innerText === "作業中") {
             tableWorkingButton.innerText = "完了";
+            todos[idValue].status = "完了";
           } else if (tableWorkingButton.innerText === "完了") {
             tableWorkingButton.innerText = "作業中";
+            todos[idValue].status = "作業中";
           }
         });
       };
