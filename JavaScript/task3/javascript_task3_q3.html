@@ -9,11 +9,11 @@
     <h1>ToDoリスト</h1>
 
     <form>
-      <input type="radio" />
+      <input type="radio" name="todo" checked="checked" />
       <label>すべて</label>
-      <input type="radio" />
+      <input type="radio" name="todo" id="working" />
       <label>作業中</label>
-      <input type="radio" />
+      <input type="radio" name="todo" id="completion" />
       <label>完了</label>
     </form>
 
@@ -41,7 +41,7 @@
       //タスクを蓄積するtodos
       let todos = [];
 
-      let addTask = (task, id) => {
+      let addTask = (task, status, id) => {
         //表のタグを作成
         const tableTr = document.createElement("tr");
         const tableWorkingTd = document.createElement("td");
@@ -100,10 +100,10 @@
           for (let i = 0; i < todos.length; i++) {
             let todo = {
               task: todos[i].task,
-              status: "作業中",
+              status: todos[i].status,
               id: todos[i].id,
             };
-            addTask(todo.task, todo.id);
+            addTask(todo.task, todo.status, todo.id);
           }
         });
 
@@ -118,14 +118,19 @@
           ボタンがクリックされたら、
           ①作業中⇄完了にボタンのテキストの変更
           ②todoのステータスを作業中⇄完了に変更
+          ③idを繰り返し使うためにremoveAttributeでidを削除
           */
           if (tableWorkingButton.innerText === "作業中") {
             tableWorkingButton.innerText = "完了";
             todos[idValue].status = "完了";
+            idNumberVal.removeAttribute("id");
           } else if (tableWorkingButton.innerText === "完了") {
             tableWorkingButton.innerText = "作業中";
             todos[idValue].status = "作業中";
+            idNumberVal.removeAttribute("id");
           }
+
+          console.log(todos);
         });
       };
 
@@ -147,7 +152,7 @@
           });
 
           //関数addTaskを呼び出す、引数はinputの内容と初期ID
-          addTask(todo.task, todo.id);
+          addTask(todo.task, todo.status, todo.id);
 
           //inputの中をリセット
           taskValue.value = "";
