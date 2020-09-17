@@ -78,6 +78,45 @@
         //入力したタスクを表示する
         addictionTask.appendChild(tableTr);
 
+        //ラジオボタンの作業中がチェックされているとき
+        if (document.form.work.checked) {
+          //tableのIDにidを付与しid番号を取得
+          tableIdSpanTd.id = "idNumber";
+          const idNumberVal = document.getElementById("idNumber");
+          const idValue = idNumberVal.innerText;
+
+          /*
+          状態が作業中以外の場合、<tr>のスタイルにnoneを充てる
+          idを再び振るため削除する
+          */
+          if (tableWorkingButton.innerText === "作業中") {
+            addictionTask.children[idValue].style.display = "table-row";
+            idNumberVal.removeAttribute("id");
+          } else {
+            addictionTask.children[idValue].style.display = "none";
+            idNumberVal.removeAttribute("id");
+          }
+        }
+        //ラジオボタンの完了がチェックされているとき
+        else if (document.form.completion.checked) {
+          //tableのIDにidを付与しid番号を取得
+          tableIdSpanTd.id = "idNumber";
+          const idNumberVal = document.getElementById("idNumber");
+          const idValue = idNumberVal.innerText;
+
+          /*
+          状態が完了以外の場合、<tr>のスタイルにnoneを充てる
+          idを再び振るため削除する
+          */
+          if (tableWorkingButton.innerText === "完了") {
+            addictionTask.children[idValue].style.display = "table-row";
+            idNumberVal.removeAttribute("id");
+          } else {
+            addictionTask.children[idValue].style.display = "none";
+            idNumberVal.removeAttribute("id");
+          }
+        }
+
         //削除ボタンをクリックしたとき
         tableRemoveButton.addEventListener("click", () => {
           //tableのIDにidを付与しid番号を取得
@@ -139,7 +178,6 @@
 
         //すべて
         all.addEventListener("click", () => {
-          let arry = [];
           for (let i = 0; i < todos.length; i++) {
             let todo = {
               task: todos[i].task,
@@ -157,7 +195,6 @@
 
         //作業中
         work.addEventListener("click", () => {
-          let arry = [];
           for (let i = 0; i < todos.length; i++) {
             let todo = {
               task: todos[i].task,
@@ -176,7 +213,6 @@
 
         //完了
         completion.addEventListener("click", () => {
-          let arry = [];
           for (let i = 0; i < todos.length; i++) {
             let todo = {
               task: todos[i].task,
