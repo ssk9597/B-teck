@@ -41,198 +41,22 @@
       //タスクを蓄積するtodos
       let todos = [];
 
-      let addTask = (task, status, id) => {
-        //表のタグを作成
-        const tableTr = document.createElement("tr");
-        const tableWorkingTd = document.createElement("td");
-        const tableWorkingButton = document.createElement("button");
-        const tableRemoveTd = document.createElement("td");
-        const tableRemoveButton = document.createElement("button");
+      //表のタグを作成
+      let tableTr = document.createElement("tr");
+      let tableWorkingTd = document.createElement("td");
+      let tableWorkingButton = document.createElement("button");
+      let tableRemoveTd = document.createElement("td");
+      let tableRemoveButton = document.createElement("button");
+      let tableIdSpan = document.createElement("span");
+      let tableIdSpanTd = document.createElement("td");
+      let tableTaskSpan = document.createElement("span");
+      let tableTaskSpanTd = document.createElement("td");
 
-        //状態の2つのボタンにテキストを追加
-        tableWorkingButton.innerText = status;
-        tableRemoveButton.innerText = "削除";
-
-        //IDをtableTrに追加する準備
-        const tableIdSpan = document.createElement("span");
-        tableIdSpan.innerText = id;
-        const tableIdSpanTd = document.createElement("td");
-        tableIdSpanTd.append(tableIdSpan);
-
-        //taskをtableTrに追加する準備
-        const tableTaskSpan = document.createElement("span");
-        tableTaskSpan.innerText = task;
-        const tableTaskSpanTd = document.createElement("td");
-        tableTaskSpanTd.append(tableTaskSpan);
-
-        //2つのボタンをtableTrに追加する準備
-        tableWorkingTd.append(tableWorkingButton);
-        tableRemoveTd.append(tableRemoveButton);
-
-        //tableTrに追加
-        tableTr.append(tableIdSpanTd);
-        tableTr.append(tableTaskSpanTd);
-        tableTr.append(tableWorkingTd);
-        tableTr.append(tableRemoveTd);
-
-        //入力したタスクを表示する
-        addictionTask.appendChild(tableTr);
-
-        //ラジオボタンの作業中がチェックされているとき
-        if (document.form.work.checked) {
-          //tableのIDにidを付与しid番号を取得
-          tableIdSpanTd.id = "idNumber";
-          const idNumberVal = document.getElementById("idNumber");
-          const idValue = idNumberVal.innerText;
-
-          /*
-          状態が作業中以外の場合、<tr>のスタイルにnoneを充てる
-          idを再び振るため削除する
-          */
-          if (tableWorkingButton.innerText === "作業中") {
-            addictionTask.children[idValue].style.display = "table-row";
-            idNumberVal.removeAttribute("id");
-          } else {
-            addictionTask.children[idValue].style.display = "none";
-            idNumberVal.removeAttribute("id");
-          }
-        }
-        //ラジオボタンの完了がチェックされているとき
-        else if (document.form.completion.checked) {
-          //tableのIDにidを付与しid番号を取得
-          tableIdSpanTd.id = "idNumber";
-          const idNumberVal = document.getElementById("idNumber");
-          const idValue = idNumberVal.innerText;
-
-          /*
-          状態が完了以外の場合、<tr>のスタイルにnoneを充てる
-          idを再び振るため削除する
-          */
-          if (tableWorkingButton.innerText === "完了") {
-            addictionTask.children[idValue].style.display = "table-row";
-            idNumberVal.removeAttribute("id");
-          } else {
-            addictionTask.children[idValue].style.display = "none";
-            idNumberVal.removeAttribute("id");
-          }
-        }
-
-        //削除ボタンをクリックしたとき
-        tableRemoveButton.addEventListener("click", () => {
-          //tableのIDにidを付与しid番号を取得
-          tableIdSpanTd.id = "idNumber";
-          const idNumberVal = document.getElementById("idNumber");
-          const idValue = idNumberVal.innerText;
-
-          //削除ボタンが押された要素を削除し、todosに代入
-          todos = todos.filter((n) => n.id != idValue);
-
-          //IDを再度振り直す
-          todos.forEach((todo, index) => {
-            todo.id = index;
-          });
-
-          //addictionTaskの中身をすべて削除する
-          addictionTask.innerHTML = "";
-
-          //addictionTaskに出力する
-          for (let i = 0; i < todos.length; i++) {
-            let todo = {
-              task: todos[i].task,
-              status: todos[i].status,
-              id: todos[i].id,
-            };
-            addTask(todo.task, todo.status, todo.id);
-          }
-        });
-
-        //作業中・完了ボタンをクリックしたとき
-        tableWorkingButton.addEventListener("click", () => {
-          //tableのIDにidを付与しid番号を取得
-          tableIdSpanTd.id = "idNumber";
-          const idNumberVal = document.getElementById("idNumber");
-          const idValue = idNumberVal.innerText;
-
-          /*
-          ボタンがクリックされたら、
-          ①作業中⇄完了にボタンのテキストの変更
-          ②todoのステータスを作業中⇄完了に変更
-          ③idを繰り返し使うためにremoveAttributeでidを削除
-          */
-          if (tableWorkingButton.innerText === "作業中") {
-            tableWorkingButton.innerText = "完了";
-            todos[idValue].status = "完了";
-            idNumberVal.removeAttribute("id");
-          } else if (tableWorkingButton.innerText === "完了") {
-            tableWorkingButton.innerText = "作業中";
-            todos[idValue].status = "作業中";
-            idNumberVal.removeAttribute("id");
-          }
-        });
-
-        //ラジオボタンでソートを行う
-        //準備
-        const all = document.getElementById("all");
-        const work = document.getElementById("work");
-        const completion = document.getElementById("completion");
-
-        //すべて
-        all.addEventListener("click", () => {
-          for (let i = 0; i < todos.length; i++) {
-            let todo = {
-              task: todos[i].task,
-              status: todos[i].status,
-              id: todos[i].id,
-            };
-
-            let a = addictionTask.children[todo.id];
-
-            if ((a.style.display = "none")) {
-              a.style.display = "table-row";
-            }
-          }
-        });
-
-        //作業中
-        work.addEventListener("click", () => {
-          for (let i = 0; i < todos.length; i++) {
-            let todo = {
-              task: todos[i].task,
-              status: todos[i].status,
-              id: todos[i].id,
-            };
-            let a = addictionTask.children[todo.id];
-
-            if (todo.status === "作業中") {
-              a.style.display = "table-row";
-            } else {
-              a.style.display = "none";
-            }
-          }
-        });
-
-        //完了
-        completion.addEventListener("click", () => {
-          for (let i = 0; i < todos.length; i++) {
-            let todo = {
-              task: todos[i].task,
-              status: todos[i].status,
-              id: todos[i].id,
-            };
-            let a = addictionTask.children[todo.id];
-
-            if (todo.status === "完了") {
-              a.style.display = "table-row";
-            } else {
-              a.style.display = "none";
-            }
-          }
-        });
-      };
-
-      //追加ボタンをクリックしたとき
       addiction.addEventListener("click", () => {
-        const displayTodos = () => {
+        /* --------------------------------- */
+        /* todoを追加する */
+        /* --------------------------------- */
+        const addTodos = () => {
           //inputの内容をtaskに代入、statusを作業中にする
           let todo = {
             task: taskValue.value,
@@ -247,13 +71,247 @@
             todo.id = index;
           });
 
-          //関数addTaskを呼び出す、引数はinputの内容と初期ID
-          addTask(todo.task, todo.status, todo.id);
-
           //inputの中をリセット
           taskValue.value = "";
+
+          /* --------------------------------- */
+          /* 状態ボタンを作成する */
+          /* --------------------------------- */
+          const createStatusButton = (status) => {
+            //表のタグを作成
+            tableWorkingTd = document.createElement("td");
+            tableWorkingButton = document.createElement("button");
+
+            //状態のボタンにテキストを追加
+            tableWorkingButton.innerText = status;
+
+            //作業中・完了ボタンをクリックしたとき
+            tableWorkingButton.addEventListener("click", () => {
+              //tableのIDにidを付与しid番号を取得
+              tableIdSpanTd.id = "idNumber";
+              const idNumberVal = document.getElementById("idNumber");
+              const idValue = idNumberVal.innerText;
+
+              /*
+              ボタンがクリックされたら、
+              ①作業中⇄完了にボタンのテキストの変更
+              ②todoのステータスを作業中⇄完了に変更
+              ③idを繰り返し使うためにremoveAttributeでidを削除
+              */
+              if (tableWorkingButton.innerText === "作業中") {
+                tableWorkingButton.innerText = "完了";
+                todos[idValue].status = "完了";
+                idNumberVal.removeAttribute("id");
+              } else if (tableWorkingButton.innerText === "完了") {
+                tableWorkingButton.innerText = "作業中";
+                todos[idValue].status = "作業中";
+                idNumberVal.removeAttribute("id");
+              }
+            });
+          };
+          createStatusButton(todo.status);
+          /* --------------------------------- */
+
+          /* --------------------------------- */
+          /* 削除ボタンを作成する */
+          /* --------------------------------- */
+          const createRemoveButton = () => {
+            //表のタグを作成
+            tableRemoveTd = document.createElement("td");
+            tableRemoveButton = document.createElement("button");
+
+            //状態のボタンにテキストを追加
+            tableRemoveButton.innerText = "削除";
+          };
+          createRemoveButton();
+          /* --------------------------------- */
+
+          /* --------------------------------- */
+          /* todoを表示する */
+          /* --------------------------------- */
+          const displayTodos = (task, id) => {
+            //表のタグを作成
+            tableTr = document.createElement("tr");
+
+            //IDをtableTrに追加する準備
+            tableIdSpan = document.createElement("span");
+            tableIdSpan.innerText = id;
+            tableIdSpanTd = document.createElement("td");
+            tableIdSpanTd.append(tableIdSpan);
+
+            //taskをtableTrに追加する準備
+            tableTaskSpan = document.createElement("span");
+            tableTaskSpan.innerText = task;
+            tableTaskSpanTd = document.createElement("td");
+            tableTaskSpanTd.append(tableTaskSpan);
+
+            //2つのボタンをtableTrに追加する準備
+            tableWorkingTd.append(tableWorkingButton);
+            tableRemoveTd.append(tableRemoveButton);
+
+            //tableTrに追加
+            tableTr.append(tableIdSpanTd);
+            tableTr.append(tableTaskSpanTd);
+            tableTr.append(tableWorkingTd);
+            tableTr.append(tableRemoveTd);
+
+            //入力したタスクを表示する
+            addictionTask.appendChild(tableTr);
+          };
+          displayTodos(todo.task, todo.id);
+          /* --------------------------------- */
+
+          /* --------------------------------- */
+          /* todoを削除する */
+          /* --------------------------------- */
+          const removeTodos = () => {
+            //削除ボタンをクリックしたとき
+            tableRemoveButton.addEventListener("click", () => {
+              //tableのIDにidを付与しid番号を取得
+              tableIdSpanTd.id = "idNumber";
+              const idNumberVal = document.getElementById("idNumber");
+              const idValue = idNumberVal.innerText;
+
+              //削除ボタンが押された要素を削除し、todosに代入
+              todos = todos.filter((n) => n.id != idValue);
+
+              //IDを再度振り直す
+              todos.forEach((todo, index) => {
+                todo.id = index;
+              });
+
+              //addictionTaskの中身をすべて削除する
+              addictionTask.innerHTML = "";
+
+              //addictionTaskに出力する
+              for (let i = 0; i < todos.length; i++) {
+                let todo = {
+                  task: todos[i].task,
+                  status: todos[i].status,
+                  id: todos[i].id,
+                };
+                createStatusButton(todo.status);
+                createRemoveButton();
+                displayTodos(todo.task, todo.id);
+              }
+            });
+          };
+          removeTodos();
+          /* --------------------------------- */
+
+          /* --------------------------------- */
+          /* ラジオボタンでソートを行う */
+          /* --------------------------------- */
+          const sortRadioButton = () => {
+            //準備
+            const all = document.getElementById("all");
+            const work = document.getElementById("work");
+            const completion = document.getElementById("completion");
+
+            //すべて
+            all.addEventListener("click", () => {
+              for (let i = 0; i < todos.length; i++) {
+                let todo = {
+                  task: todos[i].task,
+                  status: todos[i].status,
+                  id: todos[i].id,
+                };
+
+                let a = addictionTask.children[todo.id];
+
+                if ((a.style.display = "none")) {
+                  a.style.display = "table-row";
+                }
+              }
+            });
+
+            //作業中
+            work.addEventListener("click", () => {
+              for (let i = 0; i < todos.length; i++) {
+                let todo = {
+                  task: todos[i].task,
+                  status: todos[i].status,
+                  id: todos[i].id,
+                };
+                let a = addictionTask.children[todo.id];
+
+                if (todo.status === "作業中") {
+                  a.style.display = "table-row";
+                } else {
+                  a.style.display = "none";
+                }
+              }
+            });
+
+            //完了
+            completion.addEventListener("click", () => {
+              for (let i = 0; i < todos.length; i++) {
+                let todo = {
+                  task: todos[i].task,
+                  status: todos[i].status,
+                  id: todos[i].id,
+                };
+                let a = addictionTask.children[todo.id];
+
+                if (todo.status === "完了") {
+                  a.style.display = "table-row";
+                } else {
+                  a.style.display = "none";
+                }
+              }
+            });
+          };
+          sortRadioButton();
+          /* --------------------------------- */
+
+          /* --------------------------------- */
+          /* ラジオボタンでチェックを行う */
+          /* --------------------------------- */
+          const checkRadioButton = () => {
+            //ラジオボタンの作業中がチェックされているとき
+            if (document.form.work.checked) {
+              //tableのIDにidを付与しid番号を取得
+              tableIdSpanTd.id = "idNumber";
+              const idNumberVal = document.getElementById("idNumber");
+              const idValue = idNumberVal.innerText;
+
+              /*
+              状態が作業中以外の場合、<tr>のスタイルにnoneを充てる
+              idを再び振るため削除する
+              */
+              if (tableWorkingButton.innerText === "作業中") {
+                addictionTask.children[idValue].style.display = "table-row";
+                idNumberVal.removeAttribute("id");
+              } else {
+                addictionTask.children[idValue].style.display = "none";
+                idNumberVal.removeAttribute("id");
+              }
+            }
+            //ラジオボタンの完了がチェックされているとき
+            else if (document.form.completion.checked) {
+              //tableのIDにidを付与しid番号を取得
+              tableIdSpanTd.id = "idNumber";
+              const idNumberVal = document.getElementById("idNumber");
+              const idValue = idNumberVal.innerText;
+
+              /*
+              状態が完了以外の場合、<tr>のスタイルにnoneを充てる
+              idを再び振るため削除する
+              */
+              if (tableWorkingButton.innerText === "完了") {
+                addictionTask.children[idValue].style.display = "table-row";
+                idNumberVal.removeAttribute("id");
+              } else {
+                addictionTask.children[idValue].style.display = "none";
+                idNumberVal.removeAttribute("id");
+              }
+            }
+          };
+          checkRadioButton();
+          /* --------------------------------- */
         };
-        displayTodos();
+        addTodos();
+        /* --------------------------------- */
       });
     });
   </script>
