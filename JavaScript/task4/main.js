@@ -84,9 +84,20 @@ btn.addEventListener("click", () => {
     //check
     console.log(quizArray);
 
+    //回答をシャッフルする
+    function shuffle(arry) {
+      for (let i = arry.length - 1; i > 0; i--) {
+        const r = Math.floor(Math.random() * (i + 1));
+        //rとiを入れ替える
+        [arry[r], arry[i]] = [arry[i], arry[r]];
+      }
+      //そのarryをreturnで返す
+      return arry;
+    }
+
     //問題を出力する関数outputQuiz
     function outputQuiz() {
-      //answer-wrapperの中身をすべて消す
+      //.answer-wrapperの中身をすべて消す
       while (answerWrapper.firstChild) {
         answerWrapper.removeChild(answerWrapper.firstChild);
       }
@@ -100,6 +111,9 @@ btn.addEventListener("click", () => {
       //難易度を出力
       difficulty.innerHTML = quizArray[quizNum].difficulty;
 
+      //シャッフルさせる
+      const shuffleAnswers = shuffle(quizArray[quizNum].incorrect_answers);
+
       //回答ボタンを出力
       for (let i = 0; i < quizArray[quizNum].incorrect_answers.length; i++) {
         //ボタンタグを作る
@@ -108,12 +122,11 @@ btn.addEventListener("click", () => {
         button.classList.add("answer");
 
         //correct_answerとincorrect_answersで取り出し方が異なるため標準化する
-        if (quizArray[quizNum].incorrect_answers[i].data) {
-          button.textContent = quizArray[quizNum].incorrect_answers[i].data;
+        if (shuffleAnswers[i].data) {
+          button.textContent = shuffleAnswers[i].data;
         } else {
-          button.textContent = quizArray[quizNum].incorrect_answers[i];
+          button.textContent = shuffleAnswers[i];
         }
-
         //.answer-wrapperの中に配置させる
         answerWrapper.appendChild(button);
       }
