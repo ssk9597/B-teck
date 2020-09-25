@@ -130,7 +130,7 @@ btn.addEventListener("click", () => {
       //activeクラスを削除する
       console.log(answersActive);
       for (let i = 0; i < answersActive.length; i++) {
-        answersActive[i].classList.remove("active");
+        answersActive[i].style.display = "none";
       }
 
       //回答ボタンを出力

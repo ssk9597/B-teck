@@ -56,10 +56,6 @@
   display: none;
 }
 
-.answer-wrapper button {
-  display: none;
-}
-
 .answer-wrapper button.active {
   display: block;
   margin: 30px auto;
