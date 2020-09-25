@@ -48,7 +48,7 @@
       margin: 30px auto;
       padding: 15px 30px;
       display: block;
-      min-width: 400px;
+      max-width: 400px;
 
       &.hidden {
         display: none;
@@ -63,6 +63,6 @@
     margin: 30px auto;
     padding: 15px 30px;
     display: block;
-    min-width: 400px;
+    width: 500px;
   }
 }

@@ -49,7 +49,7 @@
   margin: 30px auto;
   padding: 15px 30px;
   display: block;
-  min-width: 400px;
+  max-width: 400px;
 }
 
 .home-wrapper a button.hidden {
@@ -60,6 +60,6 @@
   margin: 30px auto;
   padding: 15px 30px;
   display: block;
-  min-width: 400px;
+  width: 500px;
 }
 /*# sourceMappingURL=style.css.map */

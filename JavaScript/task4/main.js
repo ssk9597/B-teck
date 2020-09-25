@@ -98,9 +98,9 @@ btn.addEventListener("click", () => {
     //問題を出力する関数outputQuiz
     function outputQuiz() {
       //.answer-wrapperの中身をすべて消す
-      while (answerWrapper.firstChild) {
-        answerWrapper.removeChild(answerWrapper.firstChild);
-      }
+      // while (answerWrapper.firstChild) {
+      //   answerWrapper.removeChild(answerWrapper.firstChild);
+      // }
 
       //問題番号を出力
       headline.innerHTML = "問題" + (quizNum + 1);
