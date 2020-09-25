@@ -59,10 +59,15 @@
 
 .answer-wrapper {
   & button {
-    @extend .btn-design;
-    margin: 30px auto;
-    padding: 15px 30px;
-    display: block;
-    width: 500px;
+    display: none;
+
+    &.active {
+      display: block;
+      @extend .btn-design;
+      margin: 30px auto;
+      padding: 15px 30px;
+      display: block;
+      width: 500px;
+    }
   }
 }
