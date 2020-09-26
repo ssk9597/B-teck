@@ -9,9 +9,7 @@ btn.addEventListener('click', () => {
     const difficulty = document.querySelector('#difficulty');
     const message = document.querySelector('#message');
     const btnWrapper = document.querySelector('.btn-wrapper');
-    const homeWrapperABtn = document.querySelector(
-        '.home-wrapper > a > button'
-    );
+    const homeWrapperABtn = document.querySelector('.home-wrapper > a > button');
     const answerWrapper = document.querySelector('.answer-wrapper');
     const answersActive = document.getElementsByClassName('active');
 
@@ -59,11 +57,7 @@ btn.addEventListener('click', () => {
             const outputAnswerCatalog = () => {
                 const answersArray = [];
 
-                for (
-                    let v = 0;
-                    v < questions.results[i].incorrect_answers.length;
-                    v++
-                ) {
+                for (let v = 0; v < questions.results[i].incorrect_answers.length; v++) {
                     const buttonText = document.createTextNode(
                         questions.results[i].incorrect_answers[v]
                     );
@@ -104,9 +98,7 @@ btn.addEventListener('click', () => {
 
         function createQuestionsArray() {
             //シャッフルさせる
-            const shuffleAnswers = shuffle(
-                quizArray[quizNum].incorrect_answers
-            );
+            const shuffleAnswers = shuffle(quizArray[quizNum].incorrect_answers);
 
             questionsArray = [];
             for (let i = 0; i < shuffleAnswers.length; i++) {
@@ -159,8 +151,7 @@ btn.addEventListener('click', () => {
         function announceResult() {
             //出力すべき内容
             headline.innerHTML = `あなたの正解数は、${score}です`;
-            message.innerHTML =
-                '再度チャレンジしたい場合は以下のボタンをクリック';
+            message.innerHTML = '再度チャレンジしたい場合は以下のボタンをクリック';
             homeWrapperABtn.classList.remove('hidden');
 
             //削除する内容
@@ -179,10 +170,7 @@ btn.addEventListener('click', () => {
             for (let i = 0; i < answersActive.length; i++) {
                 //回答の正誤をチェック、正しければscoreに+1
                 function checkAnswer() {
-                    if (
-                        answersActive[i].innerHTML ===
-                        quizArray[quizNum].correct_answer
-                    ) {
+                    if (answersActive[i].innerHTML === quizArray[quizNum].correct_answer) {
                         score++;
                     }
                 }
