@@ -43,7 +43,7 @@ btn.addEventListener('click', () => {
 
     /* -------------------------- */
     /*  問題を非同期通信で取得  */
-    async function callAPI() {
+    (async function callAPI() {
         const res = await fetch('https://opentdb.com/api.php?amount=10');
         const questions = await res.json();
         //check
@@ -184,6 +184,5 @@ btn.addEventListener('click', () => {
                 });
             }
         });
-    }
-    callAPI();
+    })();
 });
